@@ -42,20 +42,29 @@ class ProductWidget extends StatelessWidget {
                     Positioned.fill(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: CachedNetworkImage(
-                          imageUrl: product.imageUrl,
-                          fit: BoxFit.contain,
-                          placeholder: (ctx, _) => Opacity(
-                            opacity: 0.3,
-                            child: Center(
-                              child: ImageAsset(
-                                image: product.merchant.image,
-                                boxFit: BoxFit.cover,
-                                height: 60,
-                                width: 60,
+                        child: Builder(
+                          builder: (context) {
+                            Widget placeholder = Opacity(
+                              opacity: 0.3,
+                              child: Center(
+                                child: ImageAsset(
+                                  image: product.merchant.image,
+                                  boxFit: BoxFit.cover,
+                                  height: 60,
+                                  width: 60,
+                                ),
                               ),
-                            ),
-                          ),
+                            );
+
+                            return CachedNetworkImage(
+                              imageUrl: product.imageUrl,
+                              fit: BoxFit.contain,
+                              placeholder: (ctx, _) => placeholder,
+                              errorWidget: (ctx, _, _) {
+                                return placeholder;
+                              },
+                            );
+                          },
                         ),
                       ),
                     ),
