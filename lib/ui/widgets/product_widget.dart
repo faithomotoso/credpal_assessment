@@ -78,9 +78,9 @@ class ProductWidget extends StatelessWidget {
                           shape: BoxShape.circle,
                           boxShadow: [
                             BoxShadow(
-                              color: shadowColor,
+                              color: shadowColor.withValues(alpha: 0.2),
                               spreadRadius: 0.0,
-                              blurRadius: 5,
+                              blurRadius: 10,
                             ),
                           ],
                           color: Colors.white,
